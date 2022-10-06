@@ -1,4 +1,4 @@
-import L from 'leaflet';
+ import L from 'leaflet';
 
 const getGeoJSON = async () => {
     const url = "https://geo.stat.fi/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeName=tilastointialueet:kunta4500k&outputFormat=json&srsName=EPSG:4326"
@@ -9,7 +9,7 @@ const getGeoJSON = async () => {
 };
 
 const initMap = (geoData) => {
-    console.log("initmap")
+    
 
     let map = L.map('map', {
         
@@ -22,7 +22,7 @@ const initMap = (geoData) => {
          
     }).addTo(map)
 
-    console.log("initmap2")
+  
     let osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 13,
         attribution: "© OpenStreetMap",
@@ -30,23 +30,31 @@ const initMap = (geoData) => {
     }).addTo(map);
 
   
-   
     
     map.fitBounds(geoJson.getBounds())
 
-    console.log("initmap3")
+    
 }
 
 
 const getFeature = (feature , layer ) =>{
-    console.log("initmap4")
-    if(!feature.properties.id) return;
-    const id = feature.properties.id
     
-    console.log("testi")
-    layer.bindPopup("testing" + id)
+    if(!feature.properties.nimi) return;
     
+    let municipalities = feature.properties.nimi
+    
+    layer.bindTooltip(municipalities).openTooltip();
+    
+/*     layer.bindPopup(
+         `<ul>
+        <li>Name: ${municipalities}</li>
+    </ul>` 
+    //`<h1>name: ${municipalities}</h1>`
+    )
+    layer.bindTooltip(municipalities) */
+
 }
 
 getGeoJSON();
+
 

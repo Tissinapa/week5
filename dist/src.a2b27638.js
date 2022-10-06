@@ -14010,8 +14010,6 @@ var getGeoJSON = /*#__PURE__*/function () {
 }();
 
 var initMap = function initMap(geoData) {
-  console.log("initmap");
-
   var map = _leaflet.default.map('map', {
     minZoom: -3
   });
@@ -14021,27 +14019,29 @@ var initMap = function initMap(geoData) {
     onEachFeature: getFeature
   }).addTo(map);
 
-  console.log("initmap2");
-
   var osm = _leaflet.default.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 13,
     attribution: "© OpenStreetMap"
   }).addTo(map);
 
   map.fitBounds(geoJson.getBounds());
-  console.log("initmap3");
 };
 
 var getFeature = function getFeature(feature, layer) {
-  console.log("initmap4");
-  if (!feature.properties.id) return;
-  var id = feature.properties.id;
-  console.log("testi");
-  layer.bindPopup("testing" + id);
+  if (!feature.properties.nimi) return;
+  var municipalities = feature.properties.nimi;
+  layer.bindTooltip(municipalities).openTooltip();
+  /*     layer.bindPopup(
+           `<ul>
+          <li>Name: ${municipalities}</li>
+      </ul>` 
+      //`<h1>name: ${municipalities}</h1>`
+      )
+      layer.bindTooltip(municipalities) */
 };
 
 getGeoJSON();
-},{"leaflet":"node_modules/leaflet/dist/leaflet-src.esm.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"leaflet":"node_modules/leaflet/dist/leaflet-src.esm.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -14069,7 +14069,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62338" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51736" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -14245,5 +14245,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
 //# sourceMappingURL=/src.a2b27638.js.map
